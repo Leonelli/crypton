@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  width: 600px;
+  height: 400px;
+}
+
+.narrow {
+  display: flex;
+  width: 40%;
+  background: #EEE;
+  align-items: center;
+  justify-content: center;
+}
+
+.wide {
+  display: flex;
+  flex: 1;
+  background: #CCC;
+  align-items: center;
+  justify-content: center;
+}
