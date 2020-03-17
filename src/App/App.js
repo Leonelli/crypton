@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from './Container';
+import Container from '../Container/Container';
 import './App.css';
 
 function App() {
@@ -15,5 +15,4 @@ export default App;
 /*
   todo:
     - textbox insert and change value euro to bitcoin.
-    - size in %. no px.
 */

@@ -1,6 +1,6 @@
 import React from 'react';
-import Coin from './Coin';
-import ValueCoin from './ValueCoin';
+import Coin from '../Coin/Coin';
+import ValueCoin from '../ValueCoin';
 import './Container.css';
 
 const Container = props => {
