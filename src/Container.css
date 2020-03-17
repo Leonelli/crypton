@@ -1,21 +1,24 @@
 .container {
   display: flex;
   width: 600px;
-  height: 400px;
+  height: 50%;
+  border-radius: 10px;
 }
 
 .narrow {
   display: flex;
-  width: 40%;
-  background: #EEE;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 40%;
+  padding: 10px;
+  background: #EEE;
+  box-sizing: border-box;
 }
 
 .wide {
   display: flex;
   flex: 1;
-  background: #CCC;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  background: #F5F5F5;
 }
