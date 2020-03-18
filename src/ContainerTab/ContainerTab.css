@@ -1,0 +1,15 @@
+.container__tab {
+  border-right: 3px solid #AAA;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+  background: #EEE;
+}
+
+.container__tab_active {
+    border-right: 3px solid #AAA;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    background: #CCC;
+  }
