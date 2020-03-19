@@ -11,7 +11,9 @@ class Container extends React.Component {
     this.state = {
       nameStocks: props.active,
       valueStocks: null,
-      historicValue: []
+      historicValue: [],
+      minValue: null,
+      maxValue: null
     }
   }
 
@@ -30,7 +32,21 @@ class Container extends React.Component {
       .then(
         result => {
           const data = result.historical.map(x => ({ name: x.date, value: x.close }));
-          this.setState({ historicValue: data})
+          let min = +Infinity;
+          let max = -Infinity;
+          data.forEach(element => {
+            if (element.value < min) {
+              min = element.value;
+            }
+            if (element.value > max) {
+              max = element.value;
+            }
+          });
+          this.setState({ 
+            historicValue: data,
+            minValue: min,
+            maxValue: max
+          })
         },
         error => { this.setState({ error }); }
       )
@@ -68,7 +84,9 @@ class Container extends React.Component {
           </div>
           <div className="wide"> 
             <div className="valuecoin">
-              <span className="valuecoin__value">{this.state.valueStocks}</span>
+              <p className="valuecoin__value">Current value: {this.state.valueStocks}</p>
+              <p className="valuecoin__value">Min value: {this.state.minValue}</p>
+              <p className="valuecoin__value">Max value: {this.state.maxValue}</p>
             </div>
 
           </div>
@@ -80,7 +98,7 @@ class Container extends React.Component {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="value" stroke="#8884d8" />
+          <Line type="monotone" dataKey="value" stroke="#8884d8" dot={false} />
       </LineChart>
       </div>
       );
