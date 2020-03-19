@@ -1,7 +1,7 @@
 import React from 'react';
 import Coin from '../Coin/Coin';
-import ValueCoin from '../ValueCoin/ValueCoin';
 import ContainerTab from '../ContainerTab/ContainerTab';
+import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts';
 import './Container.css';
 
 class Container extends React.Component {
@@ -11,30 +11,28 @@ class Container extends React.Component {
     this.state = {
       nameStocks: props.active,
       valueStocks: null,
+      historicValue: []
     }
   }
 
 
 
   fetchInfo = () => {
-    console.log(this.state.isLoaded)
     if(this.state.isLoaded) {
-      console.log("fetching info...")
       fetch(`https://financialmodelingprep.com/api/v3/stock/real-time-price/${this.state.nameStocks}`)
       .then(res => res.json())
-      .then(result => {
-        console.log(result.price)
-        this.setState({
-          isLoaded: false,
-          valueStocks: result.price,
-        });
-      },
-      (error) => {
-        this.setState({
-          //isLoaded:,
-          error
-        });
-      }
+      .then(
+        result => { this.setState({ isLoaded: false, valueStocks: result.price }); },
+        error => { this.setState({ error }); }
+      )
+      fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.state.nameStocks}?serietype=line`)
+      .then(res => res.json())
+      .then(
+        result => {
+          const data = result.historical.map(x => ({ name: x.date, value: x.close }));
+          this.setState({ historicValue: data})
+        },
+        error => { this.setState({ error }); }
       )
     }
   }
@@ -69,9 +67,21 @@ class Container extends React.Component {
               <Coin imageURL={this.state.nameStocks+".svg"}/>
           </div>
           <div className="wide"> 
-              <ValueCoin value={this.state.valueStocks}/>
+            <div className="valuecoin">
+              <span className="valuecoin__value">{this.state.valueStocks}</span>
+            </div>
+
           </div>
         </div>
+        <LineChart width={500} height={300} data={this.state.historicValue}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="value" stroke="#8884d8" />
+      </LineChart>
       </div>
       );
   }
