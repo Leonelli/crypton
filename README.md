@@ -25,4 +25,4 @@ You will also see any lint errors in the console.
 
 ## API source
 
-[Financial Modeling Prep API](https://github.com/antoinevulcain/Financial-Modeling-Prep-API):
+[Financial Modeling Prep API](https://github.com/antoinevulcain/Financial-Modeling-Prep-API)
