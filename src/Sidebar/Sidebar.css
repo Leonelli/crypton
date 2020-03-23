@@ -1,0 +1,37 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background: #888;
+  color: white;
+  overflow-y: scroll;
+  transform: translateX(-100%);
+  transition: 0.4s ease-in-out;
+}
+
+.sidebar--open {
+  transform: translateX(0);
+}
+
+.sidebar .icon {
+  position: absolute;
+  top: 0;
+} 
+
+.sidebar__buttons {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+}
+
+.sidebar__title {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.sidebar__item {
+  padding: 10px;
+  border-bottom: 1px solid white;
+}

@@ -1,18 +1,28 @@
 import React from 'react';
 import Container from '../Container/Container';
 import './App.css';
+import Sidebar from '../Sidebar/Sidebar';
 
-function App() {
-  return (
-    <div className="App">
-      <Container active="AAPL"/>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    active: 'HPQ',
+  }
+
+  render() {  
+    return (
+      <div className="App">
+        <Sidebar updater={this.updateActiveStock}/>
+        <Container active='AAPL'/>
+      </div>
+    );
+  }
+
+  updateActiveStock = (event) => {
+    this.setState({ 
+      active: event.target.id,
+    });
+  }
+
 }
 
 export default App;
-
-/*
-  todo:
-    - textbox insert and change value euro to bitcoin.
-*/

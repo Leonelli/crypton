@@ -7,7 +7,7 @@ import './Container.css';
 class Container extends React.Component {
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       nameStocks: props.active,
       valueStocks: null,
@@ -16,8 +16,6 @@ class Container extends React.Component {
       maxValue: null
     }
   }
-
-
 
   fetchInfo = () => {
     if(this.state.isLoaded) {
@@ -45,7 +43,7 @@ class Container extends React.Component {
           this.setState({ 
             historicValue: data,
             minValue: min,
-            maxValue: max
+            maxValue: max,
           })
         },
         error => { this.setState({ error }); }
@@ -74,8 +72,8 @@ class Container extends React.Component {
     return (
       <div className="container">
         <div className="container__tabs">
-          <ContainerTab onClick={() => this.containerTabClickHandler("AAPL")}>Apple</ContainerTab>
-          <ContainerTab onClick={() => this.containerTabClickHandler("FCA")}>Fiat</ContainerTab>
+          <ContainerTab onClick={() => this.containerTabClickHandler(this.state.nameStocks)}>Apple</ContainerTab>
+          <ContainerTab onClick={() => this.containerTabClickHandler("FCAU")}>Fiat</ContainerTab>
           <ContainerTab onClick={() => this.containerTabClickHandler("GM")}>General Motors</ContainerTab>
         </div>
         <div className="container__main">
