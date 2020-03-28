@@ -1,5 +1,5 @@
 import React from 'react'
-import Coin from '../Coin/Coin'
+import Logo from '../Logo/Logo'
 import ContainerTab from '../ContainerTab/ContainerTab'
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
 import PropTypes from 'prop-types'
@@ -68,7 +68,7 @@ class Container extends React.Component {
         </div>
         <div className="container__main">
           <div className="narrow">
-            <Coin imageURL={`${this.state.nameStocks}.svg`}/>
+            <Logo stockName={this.props.activeStock} />
           </div>
           <div className="wide">
             <div className="valuecoin">
