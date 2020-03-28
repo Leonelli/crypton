@@ -5,23 +5,19 @@ import Sidebar from '../Sidebar/Sidebar'
 
 class App extends React.Component {
   state = {
-    active: 'HPQ'
+    currentStock: 'AAPL'
   }
 
   render () {
     return (
       <div className="App">
         <Sidebar updater={this.updateActiveStock}/>
-        <Container active={this.state.active}/>
+        <Container activeStock={this.state.currentStock} updater={this.updateActiveStock}/>
       </div>
     )
   }
 
-  updateActiveStock = (event) => {
-    this.setState({
-      active: event.target.id
-    })
-  }
+  updateActiveStock = stockName => this.setState({ currentStock: stockName })
 }
 
 export default App

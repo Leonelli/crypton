@@ -10,6 +10,3 @@ const ContainerTab = props => {
 }
 
 export default ContainerTab;
-
-
-//https://financialmodelingprep.com/api/v3/stock/real-time-price

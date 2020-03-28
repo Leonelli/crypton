@@ -9,7 +9,6 @@ class Container extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      nameStocks: props.active,
       valueStocks: null,
       historicValue: [],
       minValue: null,
@@ -18,13 +17,13 @@ class Container extends React.Component {
   }
 
   fetchInfo = () => {
-    fetch(`https://financialmodelingprep.com/api/v3/stock/real-time-price/${this.props.active}`)
+    fetch(`https://financialmodelingprep.com/api/v3/stock/real-time-price/${this.props.activeStock}`)
       .then(res => res.json())
       .then(
-        result => { this.setState({ isLoaded: false, valueStocks: result.price }) },
+        result => { this.setState({ valueStocks: result.price }) },
         error => { this.setState({ error }) }
       )
-    fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.props.active}?serietype=line`)
+    fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.props.activeStock}?serietype=line`)
       .then(res => res.json())
       .then(
         result => {
@@ -51,31 +50,21 @@ class Container extends React.Component {
 
   componentDidMount () {
     this.fetchInfo()
-    // this.setState({
-    //   isLoaded: true,
-    // })
   }
 
-  componentDidUpdate (prevState, prevProps) {
-    if (prevState) {
+  componentDidUpdate (prevProps, prevState) {
+    if (prevProps.activeStock !== this.props.activeStock) {
       this.fetchInfo()
     }
-  }
-
-  containerTabClickHandler = (stocks) => {
-    this.setState({
-      nameStocks: stocks,
-      isLoaded: true
-    })
   }
 
   render () {
     return (
       <div className="container">
         <div className="container__tabs">
-          <ContainerTab onClick={() => this.containerTabClickHandler('AAPL')}>Apple</ContainerTab>
-          <ContainerTab onClick={() => this.containerTabClickHandler('FCAU')}>Fiat</ContainerTab>
-          <ContainerTab onClick={() => this.containerTabClickHandler('GM')}>General Motors</ContainerTab>
+          <ContainerTab onClick={() => this.props.updater('AAPL')}>Apple</ContainerTab>
+          <ContainerTab onClick={() => this.props.updater('FCAU')}>Fiat</ContainerTab>
+          <ContainerTab onClick={() => this.props.updater('GM')}>General Motors</ContainerTab>
         </div>
         <div className="container__main">
           <div className="narrow">
@@ -105,7 +94,8 @@ class Container extends React.Component {
 }
 
 Container.propTypes = {
-  active: PropTypes.string
+  activeStock: PropTypes.string,
+  updater: PropTypes.func
 }
 
 export default Container
