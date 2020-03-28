@@ -104,8 +104,8 @@ class Container extends React.Component {
   }
 }
 
-export default Container
-
 Container.propTypes = {
   active: PropTypes.string
 }
+
+export default Container
