@@ -17,15 +17,15 @@ class Container extends React.Component {
     }
   }
 
+
   fetchInfo = () => {
-    if(this.state.isLoaded) {
-      fetch(`https://financialmodelingprep.com/api/v3/stock/real-time-price/${this.state.nameStocks}`)
+      fetch(`https://financialmodelingprep.com/api/v3/stock/real-time-price/${this.props.active}`)
       .then(res => res.json())
       .then(
         result => { this.setState({ isLoaded: false, valueStocks: result.price }); },
         error => { this.setState({ error }); }
       )
-      fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.state.nameStocks}?serietype=line`)
+      fetch(`https://financialmodelingprep.com/api/v3/historical-price-full/${this.props.active}?serietype=line`)
       .then(res => res.json())
       .then(
         result => {
@@ -49,13 +49,12 @@ class Container extends React.Component {
         error => { this.setState({ error }); }
       )
     }
-  }
 
   componentDidMount() {
     this.fetchInfo();
-    this.setState({
-      isLoaded: true,
-    })
+    // this.setState({
+    //   isLoaded: true,
+    // })
   }
 
   componentDidUpdate() {
@@ -72,7 +71,7 @@ class Container extends React.Component {
     return (
       <div className="container">
         <div className="container__tabs">
-          <ContainerTab onClick={() => this.containerTabClickHandler(this.state.nameStocks)}>Apple</ContainerTab>
+          <ContainerTab onClick={() => this.containerTabClickHandler("AAPL")}>Apple</ContainerTab>
           <ContainerTab onClick={() => this.containerTabClickHandler("FCAU")}>Fiat</ContainerTab>
           <ContainerTab onClick={() => this.containerTabClickHandler("GM")}>General Motors</ContainerTab>
         </div>

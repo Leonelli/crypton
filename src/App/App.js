@@ -12,14 +12,14 @@ class App extends React.Component {
     return (
       <div className="App">
         <Sidebar updater={this.updateActiveStock}/>
-        <Container active='AAPL'/>
+        <Container active={this.state.active}/>
       </div>
     );
   }
 
   updateActiveStock = (event) => {
     this.setState({ 
-      active: event.target.id,
+      active: event.target.id
     });
   }
 
