@@ -8,13 +8,22 @@ class Sidebar extends React.Component {
     super(props)
     this.state = {
       stockList: [],
-      isSidebarOpen: false
+      isSidebarOpen: false,
+      filter: '',
+      items : []
     }
   }
 
+  filterList = (event) => {
+    let items = this.state.stockList;
+    items = items.filter((item) => item.name.toLowerCase().includes(event.target.value.toLowerCase()));
+    this.setState({items: items});
+  }
+
   render = () => {
-    const listItems = this.state.stockList.map((x, i) => {
-      return (<div className="sidebar__item"
+    const listItems = this.state.items.map((x, i) => {
+      return (
+      <div className="sidebar__item"
         id={x.symbol}
         key={i}
         onClick={e => this.props.updater(e.target.id)}>
@@ -28,7 +37,8 @@ class Sidebar extends React.Component {
         </div>
         <div className="sidebar">
           <h3 className="sidebar__title">Stock List</h3>
-          {listItems}
+          <input className="sidebar__search-input" type="text" placeholder="Search" onChange={this.filterList}/>
+            {listItems}
           <Icon name="close" size="big" onClick={this.menuButtonClickHandler}/>
         </div>
       </aside>
@@ -63,7 +73,7 @@ class Sidebar extends React.Component {
       .then(
         result => {
           const stockList = result.symbolsList.filter(x => x.name)
-          this.setState({ stockList })
+          this.setState({ stockList, items: stockList })
         },
         error => { console.log(error) }
       )
